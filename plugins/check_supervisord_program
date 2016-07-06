@@ -1,0 +1,53 @@
+#!/bin/bash
+
+#
+# Author: Blagomir Ivanov <blagomir.ivanov@gmail.com>
+#
+
+# exit codes
+exit_ok=0
+exit_warning=1
+exit_critical=2
+exit_unknown=3
+
+
+if [ -z "$1" ]
+then
+        echo "Usage: check_supervisord_program <program_name_here>"
+        exit $exit_unknown
+fi
+
+STATUS=`supervisorctl status | grep $1 | awk '{print $2}'`
+
+
+echo "Program $1 status is $STATUS"
+
+case "$STATUS" in
+"STOPPED" )
+    exit $exit_ok
+    ;;
+"RUNNING" )
+    exit $exit_ok
+    ;;
+"STOPPING" )
+    exit $exit_warning
+    ;;
+"STARTING" )
+    exit $exit_warning
+    ;;
+"EXITED" )
+    exit $exit_critical
+    ;;
+"BACKOFF" )
+    exit $exit_critical
+    ;;
+"FATAL" )
+    exit $exit_critical
+    ;;
+"UNKNOWN" )
+    exit $exit_critical
+    ;;
+*) echo "CRITICAL - Program $1 status is $STATUS"
+    exit $exit_critical
+   ;;
+esac
