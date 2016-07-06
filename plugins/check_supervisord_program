@@ -3,6 +3,8 @@
 #
 # Author: Blagomir Ivanov <blagomir.ivanov@gmail.com>
 # This script requires root privileges if your supervisord is running under root
+# To do this, you can add the following to your /etc/sudoers file:
+# nagios ALL=NOPASSWD: /usr/bin/supervisorctl
 #
 
 # exit codes
