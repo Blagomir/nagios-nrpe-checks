@@ -2,6 +2,7 @@
 
 #
 # Author: Blagomir Ivanov <blagomir.ivanov@gmail.com>
+# This script requires root privileges if your supervisord is running under root
 #
 
 # exit codes
